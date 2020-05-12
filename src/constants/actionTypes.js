@@ -1,0 +1,3 @@
+// authentication
+export const REQUEST_LOGIN_SUCCESS = 'REQUEST_LOGIN_SUCCESS';
+export const REQUEST_LOGIN_FAILURE = 'REQUEST_LOGIN_FAILURE';

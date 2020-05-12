@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
 import TextField from '../TextField';
 import SubmitButton from '../SubmitButton';
 import LoginFormValidator from '../../validators/LoginForm';
+import { requestLoginUser } from '../../actions/LoginAction';
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const alert = useAlert();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const loginError = useSelector(state => state.LoginReducer.error);
+  const loginSuccess = useSelector(state => state.LoginReducer.email);
 
   const isValid = () => {
-    const { errors, isValid } = LoginFormValidator({email, password});
+    const { errors, isValid } = LoginFormValidator({ email, password });
     if (!isValid) setErrors(errors);
     return isValid;
   }
@@ -21,9 +28,17 @@ const LoginForm = () => {
     if (isValid()) {
       setErrors({});
       setIsLoading(true);
-      console.log('Login form has been submitted successfully.');
+      dispatch(requestLoginUser({ email, password }))
     }
   }
+
+  useEffect(() => {
+    if (loginError) alert.error(loginError);
+  }, [loginError])
+
+  useEffect(() => {
+    if (loginSuccess) alert.success(loginSuccess);
+  }, [loginSuccess])
 
   return (
     <div>
@@ -54,7 +69,7 @@ const LoginForm = () => {
         />
 
         <SubmitButton
-          value="Log in"
+          value='Log in'
           disabled={isLoading}
           onClick={onSubmit}
         />
