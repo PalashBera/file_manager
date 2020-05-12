@@ -1,8 +1,16 @@
 import React from 'react';
+import Routes from './routes';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <h1>Hello World..!!</h1>
+    <>
+      <Navbar />
+
+      <div className='container my-3'>
+        {Routes}
+      </div>
+    </>
   );
 }
 
