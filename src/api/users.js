@@ -8,7 +8,7 @@ export function requestLoginUser({ email, password }) {
 
     if (user && user.password === password) {
       return new Promise(function(resolve, reject) {
-        resolve({ email: user.email });
+        resolve({ user: user });
       })
     } else {
       return new Promise(function(resolve, reject) {
@@ -34,19 +34,20 @@ export function requestSignupUser({ email, password }) {
       })
     } else {
       const lastUser = users[users.length - 1]
-      const newUsers = [...users, { id: lastUser.id + 1, email: email, password: password }]
+      const newUser = { id: lastUser.id + 1, email: email, password: password }
+      const newUsers = [...users, newUser]
       setToken('users', newUsers)
 
       return new Promise(function(resolve, reject) {
-        resolve({ email: email });
+        resolve({ user: newUser });
       })
     }
   } else {
-    const newUsers = [{ id: 1, email: email, password: password }]
-    setToken('users', newUsers)
+    const newUser = { id: 1, email: email, password: password }
+    setToken('users', [newUser])
 
     return new Promise(function(resolve, reject) {
-      resolve({ email: email });
+      resolve({ user: newUser });
     })
   }
 }

@@ -7,7 +7,7 @@ const signupReducer = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_SIGNUP_SUCCESS:
       return {
-        email: action.payload.email
+        user: action.payload.user
       };
     case REQUEST_SIGNUP_FAILURE:
       return {

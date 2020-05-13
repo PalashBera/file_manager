@@ -7,7 +7,7 @@ const loginReducer = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_LOGIN_SUCCESS:
       return {
-        email: action.payload.email
+        user: action.payload.user
       };
     case REQUEST_LOGIN_FAILURE:
       return {
