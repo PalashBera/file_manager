@@ -10,6 +10,10 @@ function FileManagerPage() {
     if (!authorized) setRedirect(true)
   }, []);
 
+  useEffect(() => {
+    if (!authorized) setRedirect(true)
+  }, [authorized]);
+
   if (redirect) {
     return <Redirect to='/login'/>;
   }

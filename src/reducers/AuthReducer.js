@@ -1,6 +1,7 @@
 import {
   REQUEST_LOGIN_SUCCESS,
-  REQUEST_SIGNUP_SUCCESS
+  REQUEST_SIGNUP_SUCCESS,
+  REQUEST_LOGOUT_SUCCESS
 } from '../constants/actionTypes';
 
 const authReducer = (state = {}, action) => {
@@ -12,6 +13,10 @@ const authReducer = (state = {}, action) => {
     case REQUEST_SIGNUP_SUCCESS:
       return {
         authorized: true
+      }
+    case REQUEST_LOGOUT_SUCCESS:
+      return {
+        authorized: false
       }
     default:
       return state
