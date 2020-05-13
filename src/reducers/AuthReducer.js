@@ -7,11 +7,11 @@ const authReducer = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_LOGIN_SUCCESS:
       return {
-        authorization: true
+        authorized: true
       }
     case REQUEST_SIGNUP_SUCCESS:
       return {
-        authorization: true
+        authorized: true
       }
     default:
       return state

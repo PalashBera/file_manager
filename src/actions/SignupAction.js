@@ -11,6 +11,6 @@ const requestSignupFailure = createAction(REQUEST_SIGNUP_FAILURE);
 
 export function requestSignupUser(data) {
   return dispatch => User.requestSignupUser(data)
-    .then(({ data }) => dispatch(requestSignupSuccess(data)))
+    .then(data => dispatch(requestSignupSuccess(data)))
     .catch(error => dispatch(requestSignupFailure(error)));
 }

@@ -1,7 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
 function HomePage() {
+  const [redirect, setRedirect] = useState(false);
+  const authorized = useSelector(state => state.AuthReducer.authorized);
+
+  useEffect(() => {
+    if (authorized) setRedirect(true)
+  }, []);
+
+  if (redirect) {
+    return <Redirect to='/file_manager'/>;
+  }
+
   return (
     <div className='jumbotron'>
       <h1 className='display-4'>Welcome to File Manager..!!</h1>

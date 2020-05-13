@@ -12,7 +12,7 @@ const loginReducer = (state = {}, action) => {
     case REQUEST_LOGIN_FAILURE:
       return {
         ...state,
-        error: action.payload.error
+        error: action.payload.message
       };
     default:
       return state;

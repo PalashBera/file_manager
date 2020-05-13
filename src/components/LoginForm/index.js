@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 import TextField from '../TextField';
 import SubmitButton from '../SubmitButton';
@@ -13,8 +14,9 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const authorized = useSelector(state => state.AuthReducer.authorized);
   const loginError = useSelector(state => state.LoginReducer.error);
-  const loginSuccess = useSelector(state => state.LoginReducer.email);
 
   const isValid = () => {
     const { errors, isValid } = LoginFormValidator({ email, password });
@@ -33,12 +35,19 @@ const LoginForm = () => {
   }
 
   useEffect(() => {
-    if (loginError) alert.error(loginError);
-  }, [loginError])
+    if (loginError) {
+      setIsLoading(false);
+      alert.error(loginError);
+    }
+  }, [loginError]);
 
   useEffect(() => {
-    if (loginSuccess) alert.success(loginSuccess);
-  }, [loginSuccess])
+    if (authorized) setRedirect(true)
+  }, [authorized]);
+
+  if (redirect) {
+    return <Redirect to='/file_manager'/>;
+  }
 
   return (
     <div>

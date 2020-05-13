@@ -12,7 +12,7 @@ const signupReducer = (state = {}, action) => {
     case REQUEST_SIGNUP_FAILURE:
       return {
         ...state,
-        error: action.payload.error
+        error: action.payload.message
       };
     default:
       return state;

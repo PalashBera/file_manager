@@ -17,7 +17,7 @@ export function requestLoginUser({ email, password }) {
     }
   } else {
     return new Promise(function(resolve, reject) {
-      reject(new Error({ error: 'No user is present in DB' }));
+      reject(new Error('No user is present in DB'));
     })
   }
 }

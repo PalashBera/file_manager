@@ -11,6 +11,6 @@ const requestLoginFailure = createAction(REQUEST_LOGIN_FAILURE);
 
 export function requestLoginUser(data) {
   return dispatch => User.requestLoginUser(data)
-    .then(({ data }) => dispatch(requestLoginSuccess(data)))
+    .then(data => dispatch(requestLoginSuccess(data)))
     .catch(error => dispatch(requestLoginFailure(error)));
 }

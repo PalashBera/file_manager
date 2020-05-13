@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 import TextField from '../TextField';
 import SubmitButton from '../SubmitButton';
 import SignupFormValidator from '../../validators/SignupForm';
 import { requestSignupUser } from '../../actions/SignupAction';
 
-const LoginForm = () => {
+const SignupForm = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const [email, setEmail] = useState('');
@@ -14,8 +15,9 @@ const LoginForm = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const authorized = useSelector(state => state.AuthReducer.authorized);
   const signupError = useSelector(state => state.SignupReducer.error);
-  const signupSuccess = useSelector(state => state.SignupReducer.email);
 
   const isValid = () => {
     const { errors, isValid } = SignupFormValidator({ email, password, passwordConfirmation });
@@ -34,12 +36,19 @@ const LoginForm = () => {
   }
 
   useEffect(() => {
-    if (signupError) alert.error(signupError);
-  }, [signupError])
+    if (signupError) {
+      setIsLoading(false);
+      alert.error(signupError);
+    }
+  }, [signupError]);
 
   useEffect(() => {
-    if (signupSuccess) alert.success(signupSuccess);
-  }, [signupSuccess])
+    if (authorized) setRedirect(true)
+  }, [authorized]);
+
+  if (redirect) {
+    return <Redirect to='/file_manager'/>;
+  }
 
   return (
     <div>
@@ -90,4 +99,4 @@ const LoginForm = () => {
   );
 }
 
-export default LoginForm;
+export default SignupForm;
