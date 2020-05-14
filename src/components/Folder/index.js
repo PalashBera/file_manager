@@ -5,7 +5,7 @@ import './index.css';
 
 function Folder({ folderId, name, onClickHandler }) {
   return (
-    <div className='folder' onClick={onClickHandler(folderId)}>
+    <div className='folder' onClick={() => onClickHandler(folderId)}>
       <span className='name'>{name}</span>
     </div>
   );
@@ -13,7 +13,7 @@ function Folder({ folderId, name, onClickHandler }) {
 
 Folder.propTypes = {
   title: PropTypes.string.isRequired,
-  folderId: PropTypes.string,
+  folderId: PropTypes.number,
   onClickHandler: PropTypes.func
 }
 

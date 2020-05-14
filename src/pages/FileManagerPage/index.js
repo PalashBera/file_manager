@@ -36,8 +36,9 @@ function FileManagerPage() {
     return <Redirect to='/login'/>;
   }
 
-  const onClickHandler = () => {
-
+  const onClickHandler = (folderId) => {
+    setSelectedFolderId(folderId);
+    dispatch(requestFolderListUser({ currentUser, folderId }))
   }
 
   return (

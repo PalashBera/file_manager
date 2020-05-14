@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '../TextField';
+import { requestFolderCreateUser } from '../../actions/FileManagerAction';
 import FolderFormValidator from '../../validators/FolderForm';
 
 function FolderForm({ selectedFolderId }) {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  // const [close, setClose] = useState(false);
+  const currentUser = useSelector(state => state.AuthReducer.user);
+  const folderCreationError = useSelector(state => state.FileManagerReducer.error);
+  const folders = useSelector(state => state.FileManagerReducer.folders);
+
+  useEffect(() => {
+    if (folderCreationError) {
+      setIsLoading(false);
+      errors.name = folderCreationError
+      setErrors(errors)
+    }
+  }, [folderCreationError]);
+
+  useEffect(() => {
+    if (folders) {
+      setIsLoading(false);
+      setName('');
+      // setClose(true);
+    }
+  }, [folders]);
 
   const isValid = () => {
     const { errors, isValid } = FolderFormValidator({ name });
@@ -20,6 +43,8 @@ function FolderForm({ selectedFolderId }) {
     if (isValid()) {
       setErrors({});
       setIsLoading(true);
+      const newFolder = { id: null, name: name, parentFolderId: selectedFolderId, userId: currentUser.id.toString() }
+      dispatch(requestFolderCreateUser({ newFolder, selectedFolderId }))
     }
   }
 
@@ -57,11 +82,11 @@ function FolderForm({ selectedFolderId }) {
 }
 
 FolderForm.propTypes = {
-  open: PropTypes.bool.isRequired
+  selectedFolderId: PropTypes.number
 }
 
 FolderForm.defaultProps = {
-  open: false
+  selectedFolderId: null
 }
 
 
