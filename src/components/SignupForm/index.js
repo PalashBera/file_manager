@@ -40,6 +40,7 @@ const SignupForm = () => {
       setIsLoading(false);
       alert.error(signupError);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signupError]);
 
   useEffect(() => {

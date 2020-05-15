@@ -10,7 +10,6 @@ function FolderForm({ selectedFolderId }) {
   const [name, setName] = useState('');
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  // const [close, setClose] = useState(false);
   const currentUser = useSelector(state => state.AuthReducer.user);
   const folderCreationError = useSelector(state => state.FileManagerReducer.error);
   const folders = useSelector(state => state.FileManagerReducer.folders);
@@ -21,13 +20,13 @@ function FolderForm({ selectedFolderId }) {
       errors.name = folderCreationError
       setErrors(errors)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folderCreationError]);
 
   useEffect(() => {
     if (folders) {
       setIsLoading(false);
       setName('');
-      // setClose(true);
     }
   }, [folders]);
 
@@ -43,7 +42,7 @@ function FolderForm({ selectedFolderId }) {
     if (isValid()) {
       setErrors({});
       setIsLoading(true);
-      const newFolder = { id: null, name: name, parentFolderId: selectedFolderId, userId: currentUser.id.toString() }
+      const newFolder = { id: null, name: name, parentFolderId: selectedFolderId, userId: currentUser.id }
       dispatch(requestFolderCreateUser({ newFolder, selectedFolderId }))
     }
   }

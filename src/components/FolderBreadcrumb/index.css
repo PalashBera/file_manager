@@ -1,0 +1,8 @@
+.breadcrumb {
+  min-height: 48px;
+}
+
+.breadcrumb-item {
+  cursor: pointer;
+  color: rgb(44, 108, 128);
+}

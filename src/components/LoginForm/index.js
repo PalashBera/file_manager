@@ -39,6 +39,7 @@ const LoginForm = () => {
       setIsLoading(false);
       alert.error(loginError);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginError]);
 
   useEffect(() => {

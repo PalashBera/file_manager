@@ -8,6 +8,7 @@ function HomePage() {
 
   useEffect(() => {
     if (authorized) setRedirect(true)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (redirect) {
